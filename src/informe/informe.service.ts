@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { randomUUID } from 'crypto';
 import { informe } from '../../dist/informe/informe.model';
 
 @Injectable()

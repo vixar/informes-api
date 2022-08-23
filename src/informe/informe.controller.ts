@@ -1,4 +1,4 @@
-import { Bind, Controller, Get, Logger, Param } from '@nestjs/common';
+import { Controller, Get, Logger, Param } from '@nestjs/common';
 import { InformeService } from './informe.service';
 
 @Controller('informe')
