@@ -5,7 +5,7 @@ export interface informe {
     cantidadPublicaciones: number,
     cantidadCursos: number,
     cantidadRevisitas: number,
-    cantiddadVideos: number,
+    cantidadVideos: number,
     sector: number,
     Fecha: string
 }

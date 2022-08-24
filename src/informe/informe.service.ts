@@ -1,117 +1,118 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { informe } from '../../dist/informe/informe.model';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { informe } from './interfaces/informe.interface';
+import { v4 as uuid} from "uuid";
 
 @Injectable()
 export class InformeService {
 
     private informes: informe[] = [
         {
-            id: '99ada5f2-bfcf-416b-8f09-d7aaadf3d313',
+            id: uuid(),
             agente: 'Sergio Carlos',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 6643,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'de481f00-e18e-490c-a4fb-d4990c738eef',
+            id: uuid(),
             agente: 'Armando Suero',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 6643,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41440',
+            id: uuid(),
             agente: 'Yinet Suero',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 6643,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41441',
+            id: uuid(),
             agente: 'Sergio Carlos',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 6643,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41440',
+            id: uuid(),
             agente: 'Helsen Olivares',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 6643,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41442',
+            id: uuid(),
             agente: 'Tito Gutierrez',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 6643,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41440',
+            id: uuid(),
             agente: 'Fernando Pozo',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 5754,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41440',
+            id: uuid(),
             agente: 'Santo Germán',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 5754,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41443',
+            id: uuid(),
             agente: 'Leumi Garcia',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 5754,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41440',
+            id: uuid(),
             agente: 'Sergio Carlos',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 5754,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
@@ -122,18 +123,18 @@ export class InformeService {
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 5754,
             Fecha: new Date().toLocaleDateString('es-DO')
         },
         {
-            id: 'aeafe158-f498-4be1-9d06-831199a41440',
+            id: uuid(),
             agente: 'Carolina Herrera',
             cantidadHoras: 24,
             cantidadPublicaciones: 6,
             cantidadCursos: 8,
             cantidadRevisitas: 16,
-            cantiddadVideos: 3,
+            cantidadVideos: 3,
             sector: 5754,
             Fecha: new Date().toLocaleDateString('es-DO')
         }
@@ -145,13 +146,10 @@ export class InformeService {
 
     findBySectorId(sectorNumber: number): informe[] {
         function filter(obj: informe) {
-            Logger.log(sectorNumber)
-            Logger.log(obj.sector)
-            Logger.log(obj.sector === sectorNumber)
             return obj.sector === sectorNumber
         }
         const result = this.informes.filter(filter)
-
+        if (!result.length) throw new NotFoundException(null, 'los informes del sector no fueron encontrados');
         return result;
     }
 
